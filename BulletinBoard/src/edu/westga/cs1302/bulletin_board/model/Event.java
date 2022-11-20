@@ -11,6 +11,7 @@ import java.time.LocalDate;
  */
 public class Event {
 
+	private static final String TITLE = "Title: ";
 	private String title;
 	private String description;
 	private LocalDate date;
@@ -90,5 +91,25 @@ public class Event {
 	 */
 	public Type getType() {
 		return this.type;
+	}
+	
+	@Override
+	public String toString() {
+		return TITLE + this.getTitle();
+	}
+	
+	/**
+	 * Summary of the event
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return a string with the event's title, description, date and type
+	 */
+	public String summary() {
+		return TITLE + this.getTitle() + System.lineSeparator() 
+				+ "Description: " + this.getDescription() + System.lineSeparator() 
+				+ "Date: " + this.getDate() + System.lineSeparator() 
+				+ "Type: " + this.getType();
 	}
 }
