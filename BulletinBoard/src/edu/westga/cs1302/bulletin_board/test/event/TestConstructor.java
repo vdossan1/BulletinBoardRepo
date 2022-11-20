@@ -17,5 +17,26 @@ class TestConstructor {
 			new Event("", "Best Event Ever", LocalDate.of(2022, 12, 30), Type.MUSICAL);
 		});
 	}
+	
+	@Test
+	void testInvalidDate() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Event("Concert", "Best Event Ever", LocalDate.of(2022, 10, 30), Type.MUSICAL);
+		});
+	}
+	
+	@Test
+	void testValidFutureDate() {
+		Event newEvent = new Event("Concert", "Best Event Ever", LocalDate.of(2022, 12, 30), Type.MUSICAL);
+		
+		assertEquals(LocalDate.of(2022, 12, 30), newEvent.getDate(), "Invalid date");
+	}
+	
+	@Test
+	void testValidSameDayDate() {
+		Event newEvent = new Event("Concert", "Best Event Ever", LocalDate.now(), Type.MUSICAL);
+		
+		assertEquals(LocalDate.now(), newEvent.getDate(), "Invalid date");
+	}
 
 }
