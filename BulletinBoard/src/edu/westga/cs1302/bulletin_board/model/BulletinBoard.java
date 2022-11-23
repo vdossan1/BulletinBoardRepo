@@ -84,16 +84,20 @@ public class BulletinBoard {
 		
 		List<Event> copyList = new ArrayList<Event>(this.events.values());
 		
-		if (comparator != null) {
-			copyList.sort(comparator);
-		}
 		if (type != null) {
-			for (Event event: copyList) {
-				if (!event.getType().equals(type)) {
-					copyList.remove(event);
+			copyList = new ArrayList<Event>();
+			for (Event currEvent: this.events.values()) {
+				if (currEvent.getType().equals(type)) {
+					copyList.add(currEvent);
 				}
 			}
 		}
-		return copyList;
+		
+		if (comparator != null) {
+			copyList.sort(comparator);
+			return copyList;
+		} else {
+			return copyList;
+		}
 	}
 }
