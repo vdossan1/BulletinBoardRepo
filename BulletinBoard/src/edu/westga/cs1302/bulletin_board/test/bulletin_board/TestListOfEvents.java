@@ -11,9 +11,25 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs1302.bulletin_board.model.BulletinBoard;
 import edu.westga.cs1302.bulletin_board.model.EarliestFirstEventComparator;
 import edu.westga.cs1302.bulletin_board.model.Event;
+import edu.westga.cs1302.bulletin_board.model.LatestFirstEventComparator;
 import edu.westga.cs1302.bulletin_board.model.Type;
 
 class TestListOfEvents {
+	
+	@Test
+	void testListMultipleNoOrderNoType() {
+		BulletinBoard newBoard = new BulletinBoard();
+		
+		newBoard.addEvent(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.POLITICAL));
+		newBoard.addEvent(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.MUSICAL));
+		newBoard.addEvent(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.POLITICAL));
+		
+		List<Event> actualList = newBoard.listOfEvents(null, null);
+
+		assertFalse(actualList.get(0).toString().isEmpty());
+		assertFalse(actualList.get(1).toString().isEmpty());
+		assertFalse(actualList.get(2).toString().isEmpty());
+	}
 
 	@Test
 	void testListWithMultipleOrderEarliestNoType() {
@@ -31,9 +47,7 @@ class TestListOfEvents {
 		expected.add(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.MUSICAL));
 		expected.add(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.MUSICAL));
 		
-		assertEquals(expected.get(0).summary(), actualList.get(0).summary());
-		assertEquals(expected.get(1).summary(), actualList.get(1).summary());
-		assertEquals(expected.get(2).summary(), actualList.get(2).summary());
+		assertEquals(expected.toString(), actualList.toString());
 	}
 	
 	@Test
@@ -83,27 +97,60 @@ class TestListOfEvents {
 		expected.add(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.POLITICAL));
 		expected.add(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.POLITICAL));
 		
-		assertEquals(expected.get(0).summary(), actualList.get(0).summary());
-		assertEquals(expected.get(1).summary(), actualList.get(1).summary());
+		assertEquals(expected.toString(), actualList.toString());
 	}
 	
 	@Test
-	void testListMultipleNoOrderNoType() {
+	void testListWithMultipleOrderLatestNoType() {
 		BulletinBoard newBoard = new BulletinBoard();
+		LatestFirstEventComparator latestComparator = new LatestFirstEventComparator();
 		
-		newBoard.addEvent(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.POLITICAL));
+		newBoard.addEvent(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.MUSICAL));
 		newBoard.addEvent(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.MUSICAL));
+		newBoard.addEvent(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.MUSICAL));
+		
+		List<Event> actualList = newBoard.listOfEvents(latestComparator, null);
+		
+		List<Event> expected = new ArrayList<Event>();
+		expected.add(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.MUSICAL));
+		expected.add(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.MUSICAL));
+		expected.add(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.MUSICAL));
+		
+		assertEquals(expected.toString(), actualList.toString());
+	}
+	
+	@Test
+	void testListWithMultipleOrderLatestTypePoliticalOneReturn() {
+		BulletinBoard newBoard = new BulletinBoard();
+		LatestFirstEventComparator latestComparator = new LatestFirstEventComparator();
+		
+		newBoard.addEvent(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.MUSICAL));
+		newBoard.addEvent(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.POLITICAL));
+		newBoard.addEvent(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.MUSICAL));
+		
+		List<Event> actualList = newBoard.listOfEvents(latestComparator, Type.POLITICAL);
+		
+		List<Event> expected = new ArrayList<Event>();
+		expected.add(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.MUSICAL));
+		
+		assertEquals(expected.toString(), actualList.toString());
+	}
+	
+	@Test
+	void testListWithMultipleOrderLatestTypePoliticalMultipleReturn() {
+		BulletinBoard newBoard = new BulletinBoard();
+		LatestFirstEventComparator latestComparator = new LatestFirstEventComparator();
+		
+		newBoard.addEvent(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.MUSICAL));
+		newBoard.addEvent(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.POLITICAL));
 		newBoard.addEvent(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.POLITICAL));
 		
-		List<Event> actualList = newBoard.listOfEvents(null, null);
-
-		List<Event> expected = new ArrayList<Event>();
-		expected.add(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.POLITICAL));
-		expected.add(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.MUSICAL));
-		expected.add(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.POLITICAL));
+		List<Event> actualList = newBoard.listOfEvents(latestComparator, Type.POLITICAL);
 		
-		assertFalse(actualList.get(0).toString().isEmpty());
-		assertFalse(actualList.get(1).toString().isEmpty());
-		assertFalse(actualList.get(2).toString().isEmpty());
+		List<Event> expected = new ArrayList<Event>();
+		expected.add(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.POLITICAL));
+		expected.add(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.POLITICAL));
+		
+		assertEquals(expected.toString(), actualList.toString());
 	}
 }
