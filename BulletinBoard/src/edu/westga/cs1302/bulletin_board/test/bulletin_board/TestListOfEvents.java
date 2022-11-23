@@ -96,12 +96,14 @@ class TestListOfEvents {
 		newBoard.addEvent(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.POLITICAL));
 		
 		List<Event> actualList = newBoard.listOfEvents(null, null);
+
+		List<Event> expected = new ArrayList<Event>();
+		expected.add(new Event("Concert", "Best Event Ever", LocalDate.of(2023, 1, 10), Type.POLITICAL));
+		expected.add(new Event("Second Concert", "Best Event Ever", LocalDate.of(2023, 2, 10), Type.MUSICAL));
+		expected.add(new Event("Third Concert", "Best Event Ever", LocalDate.of(2023, 3, 10), Type.POLITICAL));
 		
 		assertFalse(actualList.get(0).toString().isEmpty());
 		assertFalse(actualList.get(1).toString().isEmpty());
 		assertFalse(actualList.get(2).toString().isEmpty());
 	}
-	
-	
-
 }
