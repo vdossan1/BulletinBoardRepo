@@ -2,6 +2,7 @@ package edu.westga.cs1302.bulletin_board.view;
 
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 /** Codebehind for the MainWindow of the Application.
@@ -47,6 +49,8 @@ public class MainWindow {
 
     @FXML private TextField titleTextField;
     
+    @FXML private MenuItem removeContextMenu;
+    
     private MainWindowViewModel vm;
     
     @FXML
@@ -69,14 +73,45 @@ public class MainWindow {
         this.cmbOrderFilter.setItems(this.vm.getComparatorListProperty());
         this.vm.getSelectedComparatorProperty().bind(this.cmbOrderFilter.getSelectionModel().selectedItemProperty());
 
+        this.removeButton.disableProperty().bind(this.eventListView.getSelectionModel().selectedItemProperty().isNull());
+        this.removeContextMenu = new MenuItem();
+        this.removeContextMenu.disableProperty().bind(this.eventListView.getSelectionModel().selectedItemProperty().isNull());
+        
+        this.addEventButton.disableProperty().bind(this.titleTextField.textProperty().isEmpty());
+        
+        this.addListenerToDatePicker();
+    }
+
+    private void addListenerToDatePicker() {
+    	this.datePickerField.valueProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			try {
+        			if (newValue.isBefore(LocalDate.now())) {
+            			Alert alert = new Alert(AlertType.INFORMATION);
+                		alert.setTitle("Error");
+                		alert.setHeaderText("Error Details");
+                		alert.setContentText("This is an invalid date, please select a date at today or after");
+
+                		alert.showAndWait();
+            		}
+        		} catch (NullPointerException e) {
+        			System.out.println(e.getMessage());
+        		}
+    		}
+    	});
     }
 
     @FXML
     void handleAddEvent(ActionEvent event) {
     	try {
     		this.vm.addEvent();
-    	} catch (Exception e) {
-    		
+    	} catch (NullPointerException e) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error Details");
+    		alert.setContentText("Please select a valid date");
+
+    		alert.showAndWait();
     	}
     }
 
@@ -84,8 +119,13 @@ public class MainWindow {
     void handleRemoveEvent(ActionEvent event) {
     	try {
     		this.vm.removeEvent();
-    	} catch (Exception e) {
-    		System.out.println(e.getMessage());
+    	} catch (NullPointerException e) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error Details");
+    		alert.setContentText("The list is empty, please add an event");
+
+    		alert.showAndWait();
     	}
     }
 
@@ -111,8 +151,13 @@ public class MainWindow {
     void removeEventContextMenu(ActionEvent event) {
     	try {
     		this.vm.removeEvent();
-    	} catch (Exception e) {
-    		System.out.println(e.getMessage());
+    	} catch (NullPointerException e) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error Details");
+    		alert.setContentText("The list is empty, please add an event");
+
+    		alert.showAndWait();
     	}
     }
     
