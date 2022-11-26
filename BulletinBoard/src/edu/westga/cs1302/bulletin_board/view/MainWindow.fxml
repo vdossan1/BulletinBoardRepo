@@ -10,14 +10,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs1302.bulletin_board.view.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs1302.bulletin_board.view.MainWindow">
    <children>
       <ListView fx:id="eventListView" layoutX="239.0" layoutY="60.0" prefHeight="380.0" prefWidth="348.0">
          <contextMenu>
             <ContextMenu>
               <items>
-                <MenuItem mnemonicParsing="false" text="Details" />
-                  <MenuItem mnemonicParsing="false" text="Remove" />
+                <MenuItem mnemonicParsing="false" onAction="#displayEventDetails" text="Details" />
+                  <MenuItem mnemonicParsing="false" onAction="#removeEventContextMenu" text="Remove" />
               </items>
             </ContextMenu>
          </contextMenu>
@@ -25,17 +25,17 @@
       <TextField fx:id="titleTextField" layoutX="46.0" layoutY="101.0" />
       <TextField fx:id="descriptionTextField" layoutX="46.0" layoutY="166.0" />
       <DatePicker fx:id="datePickerField" layoutX="40.0" layoutY="238.0" />
-      <ComboBox fx:id="cmbAddType" layoutX="47.0" layoutY="295.0" onAction="#selectedType" prefWidth="150.0" />
+      <ComboBox fx:id="cmbAddType" layoutX="47.0" layoutY="295.0" prefWidth="150.0" />
       <Button fx:id="addEventButton" layoutX="72.0" layoutY="365.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="30.0" prefWidth="100.0" text="Add" />
-      <ComboBox fx:id="cmbOrderFilter" layoutX="614.0" layoutY="153.0" onAction="#orderList" prefWidth="150.0" />
-      <ComboBox fx:id="cmbTypeFilter" layoutX="614.0" layoutY="208.0" onAction="#filterType" prefWidth="150.0" />
-      <Button fx:id="removeButton" layoutX="648.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleRemoveEvent" prefHeight="30.0" prefWidth="100.0" text="Remove" />
+      <ComboBox fx:id="cmbOrderFilter" layoutX="615.0" layoutY="204.0" onAction="#orderList" prefWidth="150.0" />
+      <ComboBox fx:id="cmbTypeFilter" layoutX="615.0" layoutY="259.0" onAction="#handleFilterByType" prefWidth="150.0" />
+      <Button fx:id="removeButton" layoutX="72.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleRemoveEvent" prefHeight="30.0" prefWidth="100.0" text="Remove" />
       <Label layoutX="109.0" layoutY="74.0" text="Title" />
       <Label layoutX="88.0" layoutY="148.0" text="Description" />
       <Label layoutX="108.0" layoutY="213.0" text="Date" />
       <Label layoutX="108.0" layoutY="272.0" text="Type" />
-      <Label layoutX="673.0" layoutY="127.0" text="Order" />
-      <Label layoutX="675.0" layoutY="183.0" text="Type" />
+      <Label layoutX="674.0" layoutY="178.0" text="Order" />
+      <Label layoutX="676.0" layoutY="234.0" text="Type" />
       <Label layoutX="381.0" layoutY="25.0" text="Events List" />
    </children>
 </AnchorPane>
