@@ -171,7 +171,12 @@ public class MainWindow {
 
     		alert.showAndWait();
     	} catch (Exception e) {
-    		
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error Details");
+    		alert.setContentText("The list is empty, please add an event");
+
+    		alert.showAndWait();
     	}
     }
 
