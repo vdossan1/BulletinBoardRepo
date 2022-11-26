@@ -9,10 +9,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs1302.bulletin_board.model.BulletinBoard;
-import edu.westga.cs1302.bulletin_board.model.EarliestFirstEventComparator;
 import edu.westga.cs1302.bulletin_board.model.Event;
-import edu.westga.cs1302.bulletin_board.model.LatestFirstEventComparator;
 import edu.westga.cs1302.bulletin_board.model.Type;
+import edu.westga.cs1302.bulletin_board.model.comparator.EarliestFirstEventComparator;
+import edu.westga.cs1302.bulletin_board.model.comparator.LatestFirstEventComparator;
 
 class TestListOfEvents {
 	

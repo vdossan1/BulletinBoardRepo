@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import edu.westga.cs1302.bulletin_board.model.BulletinBoard;
-import edu.westga.cs1302.bulletin_board.model.EarliestFirstEventComparator;
 import edu.westga.cs1302.bulletin_board.model.Event;
-import edu.westga.cs1302.bulletin_board.model.LatestFirstEventComparator;
 import edu.westga.cs1302.bulletin_board.model.Type;
+import edu.westga.cs1302.bulletin_board.model.comparator.EarliestFirstEventComparator;
+import edu.westga.cs1302.bulletin_board.model.comparator.LatestFirstEventComparator;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;

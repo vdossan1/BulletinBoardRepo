@@ -1,6 +1,8 @@
-package edu.westga.cs1302.bulletin_board.model;
+package edu.westga.cs1302.bulletin_board.model.comparator;
 
 import java.util.Comparator;
+
+import edu.westga.cs1302.bulletin_board.model.Event;
 
 /**
  * Comparator to sort events by date
