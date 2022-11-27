@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 import edu.westga.cs1302.bulletin_board.model.Event;
 import edu.westga.cs1302.bulletin_board.model.Type;
 import edu.westga.cs1302.bulletin_board.viewmodel.MainWindowViewModel;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -62,6 +64,7 @@ public class MainWindow {
         this.datePickerField.valueProperty().bindBidirectional(this.vm.getDateProperty());
         
         this.eventListView.setItems(this.vm.getEventListProperty());
+        
         this.cmbAddType.setItems(this.vm.getTypeListProperty());
         this.cmbTypeFilter.setItems(this.vm.getOrderTypeListProperty());
         this.cmbTypeFilter.getItems().add(0, null);
@@ -77,7 +80,11 @@ public class MainWindow {
         this.removeContextMenu = new MenuItem();
         this.removeContextMenu.disableProperty().bind(this.eventListView.getSelectionModel().selectedItemProperty().isNull());
         
-        this.addEventButton.disableProperty().bind(this.titleTextField.textProperty().isEmpty());
+        BooleanBinding isValidTitleAndType =
+        		Bindings.or(
+        				this.titleTextField.textProperty().isEmpty(), 
+        				this.cmbAddType.valueProperty().isNull());
+        this.addEventButton.disableProperty().bind(isValidTitleAndType);
         
         this.addListenerToDatePicker();
     }

@@ -100,7 +100,7 @@ public class MainWindowViewModel {
 			
 		} else {
 			throw new IllegalArgumentException("Title cannot be empty"); 
-		}
+		} 
 	}
 
 	
