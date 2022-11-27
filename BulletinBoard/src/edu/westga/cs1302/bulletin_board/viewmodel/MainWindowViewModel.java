@@ -102,7 +102,6 @@ public class MainWindowViewModel {
 			throw new IllegalArgumentException("Title cannot be empty"); 
 		} 
 	}
-
 	
 	/**
 	 * Remove an event

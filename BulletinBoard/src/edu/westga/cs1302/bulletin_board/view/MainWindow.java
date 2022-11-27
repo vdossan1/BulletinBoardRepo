@@ -11,6 +11,7 @@ import edu.westga.cs1302.bulletin_board.model.Type;
 import edu.westga.cs1302.bulletin_board.viewmodel.MainWindowViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -55,7 +56,7 @@ public class MainWindow {
     
     private MainWindowViewModel vm;
     
-    @FXML
+	@FXML
     void initialize() {
     	this.vm = new MainWindowViewModel();
     	
@@ -107,11 +108,19 @@ public class MainWindow {
     		}
     	});
     }
+    
+    private void clearFields() {
+    	this.titleTextField.setText("");
+    	this.descriptionTextField.setText("");
+    	this.datePickerField.setValue(null);
+    	this.cmbAddType.setValue(null);
+    }
 
     @FXML
     void handleAddEvent(ActionEvent event) {
     	try {
     		this.vm.addEvent();
+    		this.clearFields();
     	} catch (NullPointerException e) {
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Error");
