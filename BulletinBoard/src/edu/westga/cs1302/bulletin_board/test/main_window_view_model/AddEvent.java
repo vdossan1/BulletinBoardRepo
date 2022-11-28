@@ -160,5 +160,24 @@ class AddEvent {
 			vm.addEvent();
 		});
 	}
+	
+	@Test
+	void testAddInvalidEventNullDate() {
+		MainWindowViewModel vm = new MainWindowViewModel();
+		
+		StringProperty titleProperty = new SimpleStringProperty(TITLE);
+		StringProperty descriptionProperty = new SimpleStringProperty("");
+		ObjectProperty<LocalDate> dateProperty = new SimpleObjectProperty<LocalDate>(null);
+		ObjectProperty<Type> typeProperty = new SimpleObjectProperty<Type>(Type.MUSICAL);
+		
+		vm.getTitleProperty().bindBidirectional(titleProperty);
+		vm.getDescriptionProperty().bindBidirectional(descriptionProperty);
+		vm.getDateProperty().bind(dateProperty);
+		vm.getSelectedTypeProperty().bind(typeProperty);
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			vm.addEvent();
+		});
+	}
 
 }

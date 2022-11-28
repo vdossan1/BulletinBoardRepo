@@ -90,19 +90,24 @@ public class MainWindowViewModel {
 	public void addEvent() {
 		String title = this.titleProperty.getValue();
 		Type type = this.selectedTypeProperty.getValue();
-		if (!title.isEmpty() && type != null) {
-			String description = this.descriptionProperty.getValue();
-			LocalDate date = this.dateProperty.getValue();
-			
-			this.board.addEvent(new Event(title, description, date, type));
-			this.updateEventList();
-			this.updateListIsEmpty();
-			
-		} else if (title.isEmpty()) {
+		String description = this.descriptionProperty.getValue();
+		LocalDate date = this.dateProperty.getValue();
+		
+		if (title.isEmpty()) {
 			throw new IllegalArgumentException("Title cannot be empty"); 
-		} else if (type == null) {
+		}
+		
+		if (type == null) {
 			throw new IllegalArgumentException("Type cannot be null"); 
 		}
+		
+		if (date == null) {
+			throw new IllegalArgumentException("Date cannot be null");
+		}
+		
+		this.board.addEvent(new Event(title, description, date, type));
+		this.updateEventList();
+		this.updateListIsEmpty();
 	}
 	
 	/**

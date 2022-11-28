@@ -11,7 +11,6 @@ import edu.westga.cs1302.bulletin_board.model.Type;
 import edu.westga.cs1302.bulletin_board.viewmodel.MainWindowViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -82,9 +81,9 @@ public class MainWindow {
         this.removeContextMenu.disableProperty().bind(this.eventListView.getSelectionModel().selectedItemProperty().isNull());
         
         BooleanBinding isValidTitleAndType =
-        		Bindings.or(
-        				this.titleTextField.textProperty().isEmpty(), 
-        				this.cmbAddType.valueProperty().isNull());
+        		Bindings.or(this.titleTextField.textProperty().isEmpty(), 
+        				this.datePickerField.valueProperty().isNull()).or(
+        						this.cmbAddType.valueProperty().isNull());
         this.addEventButton.disableProperty().bind(isValidTitleAndType);
         
         this.addListenerToDatePicker();
