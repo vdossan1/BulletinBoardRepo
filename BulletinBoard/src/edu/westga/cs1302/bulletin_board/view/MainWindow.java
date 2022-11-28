@@ -121,11 +121,11 @@ public class MainWindow {
     	try {
     		this.vm.addEvent();
     		this.clearFields();
-    	} catch (NullPointerException e) {
+    	} catch (NullPointerException | IllegalArgumentException e) {
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Error");
     		alert.setHeaderText("Error Details");
-    		alert.setContentText("Please select a valid date");
+    		alert.setContentText(e.getMessage());
 
     		alert.showAndWait();
     	}
@@ -149,8 +149,13 @@ public class MainWindow {
     void orderList(ActionEvent event) {
     	try {
     		this.vm.updateListByTypeAndOrder();
-    	} catch (Exception e) {
-    		
+    	} catch (IllegalStateException | IndexOutOfBoundsException e) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error Details");
+    		alert.setContentText(e.getMessage());
+
+    		alert.showAndWait();
     	}
     }
     
@@ -158,8 +163,13 @@ public class MainWindow {
     void handleFilterByType(ActionEvent event) {
     	try {
     		this.vm.updateListByTypeAndOrder();
-    	} catch (Exception e) {
-    		
+    	} catch (IllegalStateException | IndexOutOfBoundsException e) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error Details");
+    		alert.setContentText(e.getMessage());
+
+    		alert.showAndWait();
     	}
     }
     
