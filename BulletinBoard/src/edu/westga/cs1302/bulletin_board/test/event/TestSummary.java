@@ -13,11 +13,11 @@ class TestSummary {
 
 	@Test
 	void testWithAllFields() {
-		Event newEvent = new Event("Concert", "Best Event Ever", LocalDate.of(2022, 11, 20), Type.MUSICAL);
+		Event newEvent = new Event("Concert", "Best Event Ever", LocalDate.now(), Type.MUSICAL);
 		
 		String summary = "Title: Concert" + System.lineSeparator()
 							+ "Description: Best Event Ever" + System.lineSeparator()
-							+ "Date: 2022-11-20" + System.lineSeparator()
+							+ "Date: " + LocalDate.now() + System.lineSeparator()
 							+ "Type: " + Type.MUSICAL;
 		
 		assertEquals(summary, newEvent.summary());
@@ -25,11 +25,11 @@ class TestSummary {
 	
 	@Test
 	void testEmptyDescription() {
-		Event newEvent = new Event("Concert", "", LocalDate.of(2022, 11, 20), Type.MUSICAL);
+		Event newEvent = new Event("Concert", "", LocalDate.now(), Type.MUSICAL);
 		
 		String summary = "Title: Concert" + System.lineSeparator()
 							+ "Description: " + System.lineSeparator()
-							+ "Date: 2022-11-20" + System.lineSeparator()
+							+ "Date: " + LocalDate.now() + System.lineSeparator()
 							+ "Type: " + Type.MUSICAL;
 		
 		assertEquals(summary, newEvent.summary());
